@@ -1,0 +1,7 @@
+C:\Users\travi\source\repos\New game\New game\bin\Debug\New game.exe.config
+C:\Users\travi\source\repos\New game\New game\bin\Debug\New game.exe
+C:\Users\travi\source\repos\New game\New game\bin\Debug\New game.pdb
+C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.csprojAssemblyReference.cache
+C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.csproj.CoreCompileInputs.cache
+C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.exe
+C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.pdb
