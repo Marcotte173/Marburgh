@@ -14,6 +14,7 @@ namespace New_game
         public static Equipment[] WeaponList = new Equipment[] { new Equipment("None", 0, 0), new Equipment("Dagger", 2, 50), new Equipment("Short Sword", 5, 400), new Equipment("Arming Sword", 8, 800) };
         public static Equipment[] ArmorList = new Equipment[] { new Equipment("None", 0, 0), new Equipment("Cloth Armor", 2, 50), new Equipment("Old Leather Armor", 5, 400), new Equipment("Leather Armor", 8, 800) };
         public static pClass[] MonsterClassList = new pClass[] { new pClass("Orc", 9, 4, 0, 0), new pClass("Goblin", 6, 3, 0, 0), new pClass("Kobald", 7, 2, 0, 0), new pClass("Skeleton", 8, 3, 0, 0) };
+        public static pClass Boss = new pClass("Boss", 40, 10, 0, 0);
         public static pClass Warrior = new pClass("Warrior", 12, 4, 0, 0);
         public static pClass Rogue = new pClass("Rogue", 10, 5, 1, 1);
         public static pClass Mage = new pClass("Mage", 8, 2, 3, 3);
@@ -78,7 +79,8 @@ namespace New_game
             Console.WriteLine($"Name: {p.pName}");
             Console.WriteLine($"");
             Console.WriteLine($"Class: {p.pClass.cName}");
-            Console.WriteLine($"Level: {p.level}");
+            if (p.level == 5) Console.WriteLine("YOU ARE MAX LEVEL");
+            else Console.WriteLine($"Level: {p.level}");
             Console.WriteLine($"Gold: {p.gold}");
             if (p.xp >= p.xpRequired) Console.WriteLine("YOU ARE ELIGIBLE FOR A LEVEL RAISE");
             else Console.WriteLine($"Experience: {p.xp}/{p.xpRequired}");
@@ -128,7 +130,7 @@ namespace New_game
         {
             Console.Clear();
             Console.WriteLine("YOU DIED!");
-            Console.WriteLine("You tried.\nYou failed but you tried.\nAnd in the end, is that not the real victory?\nThe answer is no.\n\nGoodbye!");
+            Console.WriteLine("\n\nYou tried.\nYou failed but you tried.\nAnd in the end, is that not the real victory?\nThe answer is no.\n\nGoodbye!");
             Keypress();
             Environment.Exit(0);
         }
@@ -156,6 +158,13 @@ namespace New_game
             Keypress();
         }
 
+        private static void Help()
+        {
+            Console.WriteLine("\n\nThis is a very simple dungeon crawler. Descend the dungeon to the final level and defeat the boss to win!");
+            Console.WriteLine("WEAPONS,ARMOR,ITEMS\nUse the shops to outfit your character with better gear and healing potions");
+            Keypress();
+        }
+                
         private static void ItemFind()
         {
             int rewardRoll;
@@ -205,6 +214,30 @@ namespace New_game
             Keypress();
         }
 
+        private static void ItemShop()
+        {
+            Console.Clear();
+            Console.WriteLine("You eneter a dingy shop. A fat little man walks up to you quickly.\n'Hello there! Are you here to buy potions?");
+            string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            if (confirm =="y")
+            {
+                int buyChoice;
+                do
+                {
+                    Console.WriteLine("'Excellent! how many would you like to buy? They are 100 gold apiece'");
+                } while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString().ToLower(), out buyChoice));
+                if (p.gold< buyChoice *100) Console.WriteLine("'I'm sorry, it doesn't look like you can afford that'");
+                else
+                {
+                    Console.WriteLine("'A pleasure doing business with you!'");
+                    Console.WriteLine($"You give the man {buyChoice *100} gold and receive {buyChoice} potions");
+                    p.gold -= buyChoice * 100;
+                    p.potions += buyChoice;
+                }
+                Keypress();
+            }
+        }
+
         private static void Keypress()
         {
             Console.WriteLine("\n\nPress any key to continue");
@@ -213,18 +246,22 @@ namespace New_game
 
         private static void LevelMaster()
         {
-            if (p.xp < p.xpRequired)
-                Console.WriteLine("Come back when you are more experienced");
+            if (p.level == 5) Console.WriteLine("YOU ARE MAX LEVEL");
             else
             {
-                Console.WriteLine("Congrats! You have gained a level!");
-                p.maxEnergy += p.pClass.startingEnergy;
-                p.maxHealth += p.pClass.startingHealth;
-                p.health = p.maxHealth;
-                p.energy = p.maxEnergy;
-                p.xp -= p.xpRequired;
-                p.level += 1;
-                p.damage += p.pClass.startingDamage;
+                if (p.xp < p.xpRequired)
+                    Console.WriteLine("Come back when you are more experienced");
+                else
+                {
+                    Console.WriteLine("Congrats! You have gained a level!");
+                    p.maxEnergy += p.pClass.startingEnergy;
+                    p.maxHealth += p.pClass.startingHealth;
+                    p.health = p.maxHealth;
+                    p.energy = p.maxEnergy;
+                    p.xp -= p.xpRequired;
+                    p.level += 1;
+                    p.damage += p.pClass.startingDamage;
+                }
             }
             Keypress();
         }
@@ -391,7 +428,8 @@ namespace New_game
             int playerHitRoll = rand.Next(1, 101);
             int monsterHitRoll = rand.Next(1, 101);
             int damageRoll = rand.Next(1 * (p.level / 2), 3 * (p.level / 2));
-            Console.WriteLine($"You are facing a{mon.name}");
+            if (p.level == 5) Console.WriteLine($"You are facing {mon.name}");
+            else Console.WriteLine($"You are facing a {mon.name}");
             Console.Write($"'{mon.taunt}'");
             Console.WriteLine("");
             Console.WriteLine("");
@@ -421,6 +459,18 @@ namespace New_game
         private static void GameDungeon()
         {
             Console.Clear();
+            if (p.level == 5)
+            {
+                Console.WriteLine($"You are on the lowest dungeon level. It looks... different. There is treasure everywhere!\nBut there is also Marcotte");
+                Console.WriteLine($"Are you ready for your final showdown?");
+                string confirm = Console.ReadKey(true).KeyChar.ToString();
+                if (confirm == "y")
+                {
+                    mon = new Monster("Marcotte", "End of the line", Boss, 0, 0, " Marcotte");
+                    GameCombatMenu();
+                }
+                else GameTown();
+            }
             Console.WriteLine($"You are in dungeon level {p.level}");
             Console.WriteLine($"\n[L]ook for a monster    [H]eal");
             Console.WriteLine($"[C]haracter             [R]eturn to town");
@@ -440,9 +490,10 @@ namespace New_game
         private static void GameTown()
         {
             Console.Clear();
-            Console.WriteLine("You are in a town. You see a several places to go\n\n[W]eapon shop      [A}rmor shop            [D]ungeon ");
-            Console.WriteLine("[C]haracter        [V]isit level master    [H]eal");
-            Console.WriteLine("[Q]uit");
+            Console.WriteLine("You are in a town. You see a several places to go\n\n" +
+                              "[W]eapon shop      [A}rmor shop            [I]tem shop");
+            Console.WriteLine("[D]ungeon          [V]isit level master    [H]eal");
+            Console.WriteLine("[C]haracter        [Q]uit                  [?]Help");
             Console.WriteLine("\n\nWhat would you like to do?\n\n");
             string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (choice == "w")
@@ -459,13 +510,19 @@ namespace New_game
                 GameDungeon();
             else if (choice == "h")
                 Heal();
+            else if (choice == "i")
+                ItemShop();
+            else if (choice == "?")
+                Help();
             else if (choice == "c")
                 Character();
             else if (choice == "v")
                 LevelMaster();
             else if (choice == "q")
                 Quit();
+            else if (choice == "x")
+                p.level = 5;
             GameTown();
-        }       
+        }        
     }       
 }
