@@ -5,3 +5,10 @@ C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.csprojAssemblyR
 C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.csproj.CoreCompileInputs.cache
 C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.exe
 C:\Users\travi\source\repos\New game\New game\obj\Debug\New game.pdb
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\bin\Debug\New game.exe.config
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\bin\Debug\New game.exe
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\bin\Debug\New game.pdb
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\obj\Debug\New game.csprojAssemblyReference.cache
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\obj\Debug\New game.csproj.CoreCompileInputs.cache
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\obj\Debug\New game.exe
+\\FS-1929\user$\tmarcott\Desktop\Marburgh-master\New game\New game\obj\Debug\New game.pdb

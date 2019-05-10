@@ -108,7 +108,7 @@ namespace New_game
 
         private static void CharacterSelectConfirm(Creature p)
         {
-            Console.WriteLine($"\n\n\nSo {p.pName} the {p.pClass.cName}?");
+            Console.WriteLine($"\n\n\nSo {p.pName} the {p.pClass.cName}?\n\n[Y]es      [N]o\n");
             string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (confirm == "y") return;
             CharacterSelect();
@@ -217,15 +217,15 @@ namespace New_game
         private static void ItemShop()
         {
             Console.Clear();
-            Console.WriteLine("You eneter a dingy shop. A fat little man walks up to you quickly.\n'Hello there! Are you here to buy potions?");
+            Console.WriteLine("You eneter a dingy shop. A fat little man walks up to you quickly.\n'Hello there! Are you here to buy potions?\n\n[Y]es      [N]o\n");
             string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (confirm =="y")
             {
                 int buyChoice;
                 do
                 {
-                    Console.WriteLine("'Excellent! how many would you like to buy? They are 100 gold apiece'");
-                } while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString().ToLower(), out buyChoice));
+                    Console.WriteLine($"'Excellent! how many would you like to buy? They are 100 gold apiece'\n\nYou can afford {p.gold/100} potions");
+                } while (!int.TryParse(Console.ReadLine(), out buyChoice));
                 if (p.gold< buyChoice *100) Console.WriteLine("'I'm sorry, it doesn't look like you can afford that'");
                 else
                 {
@@ -303,7 +303,7 @@ namespace New_game
                     if (p.gold < shop.ItemList[buyChoice].price) Console.WriteLine("\n\n'Sorry, you don't Have enough Gold'");
                     else
                     {
-                        Console.WriteLine($"\n\nWould you like to buy {shop.ItemList[buyChoice].name}\n\n");
+                        Console.WriteLine($"\n\nWould you like to buy {shop.ItemList[buyChoice].name}?\n\n[Y]es      [N]o\n\n");
                         string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
                         if (confirm == "y")
                         {
@@ -345,7 +345,7 @@ namespace New_game
                     } while (!int.TryParse(Console.ReadKey(true).KeyChar.ToString().ToLower(), out sellChoice));
                     if (sellChoice > 0 && sellChoice <= shop.ItemList.Length)
                     {
-                        Console.WriteLine($"\n\nWould you Like to sell {EquipmentList[sellChoice - 1].name}? I'll give you {EquipmentList[sellChoice - 1].price / 2} for it\n\n");
+                        Console.WriteLine($"\n\nWould you Like to sell {EquipmentList[sellChoice - 1].name}? I'll give you {EquipmentList[sellChoice - 1].price / 2} for it\n\n[Y]es      [N]o\n\n");
                         string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
                         if (confirm == "y")
                         {
@@ -365,7 +365,7 @@ namespace New_game
 
         private static void ShopBuy(Equipment equip, Equipment playerEquip)
         {
-            Console.WriteLine($"I see you have a {equip.name}. Would you like to sell it?");
+            Console.WriteLine($"I see you have a {equip.name}. Would you like to sell it?\n\n[Y]es      [N]o\n");
             string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (confirm == "y")
             {
@@ -408,7 +408,7 @@ namespace New_game
 
         private static void Quit()
         {
-            Console.WriteLine("Are you sure you want to quit?");
+            Console.WriteLine("Are you sure you want to quit?\n\n[Y]es      [N]o\n");
             string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (choice == "y")
                 Environment.Exit(0);
