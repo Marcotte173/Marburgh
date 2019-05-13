@@ -25,6 +25,15 @@ namespace New_game
         //Game Info Functions
         static void Main(string[] args)
         {
+            Console.WriteLine("                     _                         _     ");
+            Console.WriteLine("/'\\_/`\\             ( )                       ( )    ");
+            Console.WriteLine("|     |   _ _  _ __ | |_    _   _  _ __   __  | |__  ");
+            Console.WriteLine("| (_) | /'_` )( '__)| '_`\\ ( ) ( )( '__)/'_ `\\|  _ `\\ ");
+            Console.WriteLine("| | | |( (_| || |   | |_) )| (_) || |  ( (_) || | | |");
+            Console.WriteLine("(_) (_)`\\__,_)(_)   (_,__/'`\\___/'(_)  `\\__  |(_) (_)");
+            Console.WriteLine("                                       ( )_) |       ");
+            Console.WriteLine("                                        \\___/'       ");
+            Keypress();
             CharacterCreate();
         }
 
@@ -266,6 +275,17 @@ namespace New_game
             Keypress();
         }
 
+        private static void NameSelect()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\nWhat is your name?");
+            pName = Console.ReadLine();
+            Console.WriteLine($"\n\n\n{pName}, is that correct?\n\n[Y]es      [N]o\n");
+            string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            if (confirm == "y") return;
+            else NameSelect();
+        }
+
         private static void Reward()
         {
             if (mon.name == "Marcotte") Win();
@@ -289,10 +309,12 @@ namespace New_game
             string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (choice == "1")
             {
+                Console.WriteLine("Great! What would you like to buy?\n");
                 for (int i = 1; i < shop.ItemList.Length; i++)
                 {
                     Console.WriteLine($"[{i}] {shop.ItemList[i].name}  {shop.ItemList[i].price}");
                 }
+                Console.WriteLine("[0] Return");
                 int buyChoice;
                 do
                 {
@@ -338,6 +360,7 @@ namespace New_game
                     {
                         Console.WriteLine($"[{i + 1}] {EquipmentList[i].name}  {EquipmentList[i].price / 2}");
                     }
+                    Console.WriteLine("[0] Return");
                     int sellChoice;
                     do
                     {
@@ -393,17 +416,6 @@ namespace New_game
             }
             Keypress();
             GameCombatMenu();            
-        }
-
-        private static void NameSelect()
-        {
-            Console.Clear();
-            Console.WriteLine("Welcome to Marcotte's first game, remastered.\n\nWhat is your name?");
-            pName = Console.ReadLine();
-            Console.WriteLine($"\n\n\n{pName}, is that correct?");
-            string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
-            if (confirm == "y") return;
-            else NameSelect();
         }        
 
         private static void Quit()
@@ -416,7 +428,7 @@ namespace New_game
 
         private static void Win()
         {
-            Console.WriteLine("Thanks for playing my game!\nThat's all there is for no but if there's any interest whatsoever i'd love to add more to it.\nMonsters, bosses, dungeons, I've got a lot of ideas");
+            Console.WriteLine("Thanks for playing my game!\nThat's all there is for now but if there's any interest whatsoever i'd love to add more to it.\nMonsters, bosses, dungeons, events, I've got a lot of ideas");
             Keypress(); 
         }
 
@@ -490,7 +502,7 @@ namespace New_game
         private static void GameTown()
         {
             Console.Clear();
-            Console.WriteLine("You are in a town. You see a several places to go\n\n" +
+            Console.WriteLine("You are in the town of Marburgh. It is a small town, but is clearly growing. Who knows what will be here in a monty?\n\n" +
                               "[W]eapon shop      [A}rmor shop            [I]tem shop");
             Console.WriteLine("[D]ungeon          [V]isit level master    [H]eal");
             Console.WriteLine("[C]haracter        [Q]uit                  [?]Help");
