@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{588D8622-C08C-4490-A03C-EE1092559E20}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>New_game</RootNamespace>
-    <AssemblyName>New game</AssemblyName>
+    <RootNamespace>Marburgh</RootNamespace>
+    <AssemblyName>Marburgh</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

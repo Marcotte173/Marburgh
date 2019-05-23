@@ -20,6 +20,7 @@
         fights = 10;
         fightsMax = 10;
         xpRequired = 25;
+        win = false;
 }
     public void SetName(string x) { pName = x; }
 }

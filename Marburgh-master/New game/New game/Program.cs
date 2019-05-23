@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.IO;
+using System.Linq;
 
 namespace New_game
 {
@@ -21,6 +23,7 @@ namespace New_game
         public static pClass Warrior = new pClass("Warrior", 12, 4, 0, 0);
         public static pClass Rogue = new pClass("Rogue", 10, 5, 1, 1);
         public static pClass Mage = new pClass("Mage", 8, 2, 3, 3);
+        public static pClass[] HeroList = new pClass[] { Warrior, Rogue, Mage };
         public static Random rand = new Random();
         public static Shop WeaponShop = new Shop("Billford's weapon emporium.", "Billford", "troll", "Greetings, What can I do for you", WeaponList);
         public static Shop ArmorShop = new Shop("Alya's armor shop.", "Alya", "elf", "Hey there! Looking to buy some armor?", ArmorList);
@@ -28,16 +31,7 @@ namespace New_game
         //Game Info Functions
         static void Main(string[] args)
         {
-            Console.WriteLine("                     _                         _     ");
-            Console.WriteLine("/'\\_/`\\             ( )                       ( )    ");
-            Console.WriteLine("|     |   _ _  _ __ | |_    _   _  _ __   __  | |__  ");
-            Console.WriteLine("| (_) | /'_` )( '__)| '_`\\ ( ) ( )( '__)/'_ `\\|  _ `\\ ");
-            Console.WriteLine("| | | |( (_| || |   | |_) )| (_) || |  ( (_) || | | |");
-            Console.WriteLine("(_) (_)`\\__,_)(_)   (_,__/'`\\___/'(_)  `\\__  |(_) (_)");
-            Console.WriteLine("                                       ( )_) |       ");
-            Console.WriteLine("                                        \\___/'       ");
-            Keypress();
-            CharacterCreate();
+            Welcome();
         }
 
         private static void AttackMonster()
@@ -351,6 +345,63 @@ namespace New_game
             Keypress();
         }
 
+        private static void Load()
+        {
+            Console.WriteLine("What is the name of the character you would like to load?");
+            string charname = Console.ReadLine();
+            string readText = File.ReadAllText($"{charname}.txt");
+            string[] line = readText.Split(',');
+            if (line[21] == "true") WinStats();
+            string[] num = new string[] { line[2], line[5], line[6], line[7], line[8], line[9], line[10], line[11], line[12], line[13], line[14], line[15], line[16], line[17], line[18], line[19], line[20] };
+            int[] number = Array.ConvertAll(num, s => int.Parse(s));
+            p = new Hero(pName, Warrior, WeaponList[0], ArmorList[1]);
+            p.pName = line[0];
+            for (int i = 0; i < HeroList.Length; i++)
+            {
+                if (line[1] == HeroList[i].cName) p.pClass = HeroList[i];
+            }
+            
+            for (int i = 0; i < ArmorList.Length; i++)
+            {
+                if(line[3] == WeaponList[i].name) p.Weapon = WeaponList[i];
+
+                if(line[4] == ArmorList[i].name) p.Armor = ArmorList[i];
+            }
+            p.potions = number[0];
+            p.gold = number[1];
+            p.bankGold = number[2];
+            p.damage = number[3];
+            p.energy = number[4];
+            p.maxEnergy = number[5];
+            p.fights = number[6];
+            p.fightsMax = number[7];
+            p.health = number[8];
+            p.maxHealth = number[9];
+            p.level = number[10];
+            p.levelMax = number[11];
+            p.magic = number[12];
+            p.maxMagic = number[13];
+            p.xp = number[14];
+            p.xpRequired = number[15];
+            day = number[16];
+            Console.WriteLine("Your data has been loaded");
+            Keypress();
+            GameTown();
+        }
+
+        private static void WinStats()
+        {
+            Console.WriteLine("You look around the hall of fame. It feels good to be the best");
+            Console.WriteLine("[L]ook at top scores         [Q]uit/nWhat would you like to do?");
+            string confirm = Console.ReadKey().KeyChar.ToString().ToLower();
+            if (confirm == "l")
+            {
+
+            }
+            else if (confirm == "q") Environment.Exit(0);
+            else WinStats();
+        }
+
         private static void MonsterSummon()
         {
             Thread.Sleep(300);
@@ -410,6 +461,21 @@ namespace New_game
             Thread.Sleep(400);
         }
 
+        private static void Save()
+        {
+            FileStream filestream = new FileStream($"{p.pName}.txt", FileMode.Create);
+            var streamwriter = new StreamWriter(filestream);
+            streamwriter.AutoFlush = true;
+            Console.SetOut(streamwriter);
+            Console.SetError(streamwriter);
+            Console.WriteLine($"{p.pName},{p.pClass.cName},{p.potions},{p.Weapon.name},{p.Armor.name},{p.gold},{p.bankGold},{p.damage},{p.energy},{p.maxEnergy},{p.fights},{p.fightsMax},{p.health},{p.maxHealth},{p.level},{p.levelMax},{p.magic},{p.maxMagic},{p.xp},{p.xpRequired},{day},{p.win}");
+            StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
+            standardOutput.AutoFlush = true;
+            Console.SetOut(standardOutput);
+            Console.WriteLine("\nYour character has been saved!");
+            Keypress();
+        }
+
         private static void ShopBuy(Equipment equip, Equipment playerEquip)
         {
             Console.WriteLine($"I see you have a {equip.name}. Would you like to sell it?\n\n[Y]es      [N]o\n");
@@ -437,6 +503,24 @@ namespace New_game
         {
             Console.WriteLine("Thanks for playing my game!\nThat's all there is for now but if there's any interest whatsoever i'd love to add more to it.\nMonsters, bosses, dungeons, events, I've got a lot of ideas");
             Keypress(); 
+        }
+
+        private static void Welcome()
+        {
+            Console.WriteLine("                     _                         _     ");
+            Console.WriteLine("/'\\_/`\\             ( )                       ( )    ");
+            Console.WriteLine("|     |   _ _  _ __ | |_    _   _  _ __   __  | |__  ");
+            Console.WriteLine("| (_) | /'_` )( '__)| '_`\\ ( ) ( )( '__)/'_ `\\|  _ `\\ ");
+            Console.WriteLine("| | | |( (_| || |   | |_) )| (_) || |  ( (_) || | | |");
+            Console.WriteLine("(_) (_)`\\__,_)(_)   (_,__/'`\\___/'(_)  `\\__  |(_) (_)");
+            Console.WriteLine("                                       ( )_) |       ");
+            Console.WriteLine("                                        \\___/'       ");
+            Console.WriteLine("");
+            Console.WriteLine("[N]ew Game       [L]oad game\n");
+            string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
+            if (choice == "n") CharacterCreate();
+            else if (choice == "l") Load();
+            else Welcome();
         }
 
         //GAME FUNCTIONS
@@ -661,14 +745,18 @@ namespace New_game
             Console.WriteLine("You are in the town of Marburgh. It is a small town, but is clearly growing. Who knows what will be here in a month?\n\n" +
                               "[W]eapon shop            [A}rmor shop            [I]tem shop          [D]ungeon");
             Console.WriteLine("[G]amble at the Tavern   [Y]our house            [B]ank               [V]isit level master ");
-            Console.WriteLine("[C]haracter              [H]eal                  [Q]uit               [?]Help");
+            Console.WriteLine("[C]haracter              [H]eal                  [Q]uit               [?]Help\n[S]ave");
             Console.WriteLine($"\n\nWhat would you like to do?\nIt is day {day}\n\n");
             string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (choice == "w")
             {
                 shop = WeaponShop;
                 GameShop();
-            }                
+            }
+            if (choice == "s")
+            {
+                Save();
+            }
             else if (choice == "a")
             {
                 shop = ArmorShop;

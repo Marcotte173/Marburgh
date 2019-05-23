@@ -19,6 +19,7 @@
     public Equipment Weapon;
     public Equipment Armor;
     public int fights = 10;
-    public int fightsMax = 10;    
+    public int fightsMax = 10;
+    public bool win;
     public Creature(string name, pClass pClass) { }
 }
