@@ -22,7 +22,7 @@ namespace New_game
         public static pClass Boss = new pClass("Boss", 120, 45, 0, 0);
         public static pClass Warrior = new pClass("Warrior", 12, 4, 0, 0);
         public static pClass Rogue = new pClass("Rogue", 10, 5, 1, 1);
-        public static pClass Mage = new pClass("Mage", 8, 2, 3, 3);
+        public static pClass Mage = new pClass("Mage", 8, 3, 3, 3);
         public static pClass[] HeroList = new pClass[] { Warrior, Rogue, Mage };
         public static Random rand = new Random();
         public static Shop WeaponShop = new Shop("Billford's weapon emporium.", "Billford", "troll", "Greetings, What can I do for you", WeaponList);
@@ -58,11 +58,13 @@ namespace New_game
             else if (choice == "b" && p.pClass.cName == "Rogue" && p.energy > 0)
             {
                 attack = p.damage + p.Weapon.effect * 3;
+                p.energy--;
                 return;
             }
             else if (choice == "f" && p.pClass.cName == "Mage" && p.energy > 0)
             {
                 attack = p.damage + p.magic * 4;
+                p.energy--;
                 return;
             }
             else if (choice == "b" && p.pClass.cName == "Rogue" && p.energy < 1 || choice == "f" && p.pClass.cName == "Mage" && p.energy < 1)
@@ -262,8 +264,12 @@ namespace New_game
             }
             else if (itemRoll == 5 || itemRoll == 6)
             {
-                Console.WriteLine($"A potion! You gain 1 potion!");
-                p.potions++;
+                if ((p.pClass.cName == "Warrior" && p.potions < 1) || (p.pClass.cName == "Rogue" && p.potions < 1) || (p.pClass.cName == "Mage" && p.potions < 2))
+                {
+                    Console.WriteLine($"A potion! You gain 1 potion!");
+                    p.potions++;
+                }
+                else Console.WriteLine("Nothing..... Well, that's disapointing");
             }
             else if (itemRoll == 7)
             {
@@ -299,10 +305,12 @@ namespace New_game
             string confirm = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (confirm =="y")
             {
+                int amount = (p.pClass.cName == "Mage") ? 2 : 1;
+                int buymax = ((amount - p.potions == 1 && p.gold / 100 >= 1) || (amount - p.potions == 2 && p.gold / 100 == 1)) ? 1:(amount - p.potions == 2 && p.gold / 100 >= 2) ? 2 : 0;
                 int buyChoice;
                 do
                 {
-                    Console.WriteLine($"'Excellent! how many would you like to buy? They are 100 gold apiece'\n\nYou can afford {p.gold/100} potions\n[0] Return\n");
+                    Console.WriteLine($"'Excellent! how many would you like to buy? They are 200 gold apiece and you can have {amount} max'\n\nYou can buy {buymax} potions\n[0] Return\n");
                 } while (!int.TryParse(Console.ReadLine(), out buyChoice));
                 if (buyChoice == 0) return;
                 if (p.gold< buyChoice *100) Console.WriteLine("'I'm sorry, it doesn't look like you can afford that'");
