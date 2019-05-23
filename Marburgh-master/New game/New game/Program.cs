@@ -313,7 +313,8 @@ namespace New_game
                     Console.WriteLine($"'Excellent! how many would you like to buy? They are 200 gold apiece and you can have {amount} max'\n\nYou can buy {buymax} potions\n[0] Return\n");
                 } while (!int.TryParse(Console.ReadLine(), out buyChoice));
                 if (buyChoice == 0) return;
-                if (p.gold< buyChoice *100) Console.WriteLine("'I'm sorry, it doesn't look like you can afford that'");
+                else if(buyChoice>buymax) Console.WriteLine("You have too many potions!");
+                else if (p.gold< buyChoice *200) Console.WriteLine("'I'm sorry, it doesn't look like you can afford that'");
                 else
                 {
                     Console.WriteLine("'A pleasure doing business with you!'");

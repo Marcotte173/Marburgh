@@ -1,0 +1,1 @@
+Marcotte,Warrior,1,None,Cloth Armor,10000,0,4,0,0,10,10,12,12,1,5,0,0,0,25,1,False
