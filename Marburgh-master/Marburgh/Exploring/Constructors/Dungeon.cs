@@ -18,8 +18,9 @@ public class Dungeon
     public static Drop[] drop = new Drop[]
         {
             new Drop("Nothing",0,0,false),
-            new Drop("Goblin Tooth",1,15,true),
-            new Drop("Candle",1,25,true)
+            new Drop("Goblin Tooth",1,15,false),
+            new Drop("Candle",1,25,false),
+            new Drop("Green Goo",1,25,false)
         };
     public static pClass[] MonsterClassList = new pClass[]
     {
@@ -52,8 +53,12 @@ public class Dungeon
             new Room("Regular Room with Gold", "a medium sized, regular room", 10,new Event[]{ SearchList[0] }),
             new Room("Regular Room with Gold, equipment, potion, ", "a medium sized, regular room", 10,new Event[]{ SearchList[0], SearchList[1], SearchList[2],SearchList[3] })
     };
-    public static Drop[] BossDrop = new Drop[] { new Drop("Savage Orc Claw", 1, 100, true) };
-    public static Boss[] BossList = new Boss[] { new Boss("Savage Orc", "*GRAAAAH!*", MonsterClassList[5], 340, 15, 15, 6, BossDrop[0], true) };
+    public static Drop[] BossDrop = new Drop[] {
+        new Drop("Savage Orc Claw", 1, 100,true)
+    };
+    public static Boss[] BossList = new Boss[] {
+        new Boss("Savage Orc", "*GRAAAAH!*", MonsterClassList[5], 340, 15, 15, 6, BossDrop[0], true)
+    };
     public static Dungeon d;
     public static List<Dungeon> DungeonList = new List<Dungeon>()
     {
@@ -61,7 +66,8 @@ public class Dungeon
     };
 
     //Constructor
-    public Dungeon(string name, string flavor, int howManyRooms, int monsterSummon, Room[] roomOptions, Boss boss, bool dungeonAvailable, Monster[] bestiary, int loot, double diminishingReturns, bool roomExplored)
+    public Dungeon(string name, string flavor, int howManyRooms, int monsterSummon, Room[] roomOptions, Boss boss, 
+        bool dungeonAvailable, Monster[] bestiary, int loot, double diminishingReturns, bool roomExplored)
     {
         this.name = name;
         this.boss = boss;

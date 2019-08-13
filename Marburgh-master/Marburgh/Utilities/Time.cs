@@ -13,7 +13,10 @@ public class Time
     public static string[] weeks = new string[] { "none", "first", "second" };
     public static string[] months = new string[] { "none", "Janbruarch", "ApmaJune", "Jaugtempber", "Octvemdec" };
 
-    public static DayEvent[] Events = new DayEvent[] { new DayEvent("First Boss Attack", true, true, "Time has run out.\nThe Savage orc's forces have overrun your town.", 1, 1, 2, 345, false, true) };
+    public static DayEvent[] Events = new DayEvent[] 
+    {
+        new DayEvent("First Boss Attack", true, true, "Time has run out.\nThe Savage orc's forces have overrun your town.", 1, 1, 2, 345, false, true)
+    };
 
     public static void DayChange(int amount, Creature p)
     {
@@ -61,7 +64,7 @@ public class Time
     {
         for (int i = 0; i < Events.Length; i++)
         {
-            Events[i].active = true;
+            Events[i].active = false;
         }
         for (int i = 0; i < Events.Length; i++)
         {

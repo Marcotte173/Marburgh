@@ -18,13 +18,18 @@ public class Utilities
         else Utilities.EmbedColourText(Colour.XP, "Experience: ", $"{p.xp}/{LevelMaster.xpRequired[p.level]}", "");
         Utilities.EmbedColourText(Colour.GOLD, "\nGold: ", $"{p.gold}", "");
         Utilities.EmbedColourText(Colour.GOLD, "Gold In Bank: ", $"{p.bankGold}\n", "");
-        Utilities.EmbedColourText(Colour.HEALTH, "Health: ", $"{p.health}/{p.maxHealth}", "");
+        Utilities.EmbedColourText(Colour.HEALTH, "Health: ", $"{p.health}/{p.maxHealth+p.Weapon.healthEffect+p.Armor.healthEffect}", "");
         Utilities.EmbedColourText(Colour.ENERGY, "Energy: ", $"{p.energy}/{p.maxEnergy}", "");
         Utilities.EmbedColourText(Colour.SP, "Spellpower: ", $"{p.magic}\n", "");
-        Utilities.EmbedColourText(Colour.ITEM, "Weapon: ", $"{p.Weapon.name}", "");
-        Utilities.EmbedColourText(Colour.ITEM, "Armor: ", $"{p.Armor.name}\n", "");
-        Utilities.EmbedColourText(Colour.BOSS, "Damage: ", $"{p.damage + p.Weapon.effect}", "");
-        Utilities.EmbedColourText(Colour.SPEAK, "Mitigation: ", $"{p.Armor.effect}\n", "");
+        Console.Write("Weapon: ");
+        if (p.Weapon.frontEnhance > 0) Utilities.ColourText(Colour.magColour[(int)p.Weapon.frontEnhance], $"{p.Weapon.preName} ");
+        Utilities.ColourText(Colour.ITEM, p.Weapon.name);
+        Console.Write("\nArmor: ");
+        if (p.Armor.frontEnhance > 0) Utilities.ColourText(Colour.magColour[(int)p.Armor.frontEnhance], $"{p.Armor.preName} ");
+        Utilities.ColourText(Colour.ITEM, p.Armor.name);
+        //Utilities.EmbedColourText(Colour.ITEM, "\nArmor: ", $"{p.Armor.name}\n", "");
+        Utilities.EmbedColourText(Colour.BOSS, "\n\nDamage: ", $"{p.damage + p.Weapon.effect + p.Weapon.damageEffect}", "");
+        Utilities.EmbedColourText(Colour.SPEAK, "Mitigation: ", $"{p.Armor.effect+p.Armor.effect}\n", "");
         Utilities.EmbedColourText(Colour.HEALTH, "Potions: ", $"{p.potions}", "");
         Utilities.EmbedColourText(Colour.RAREDROP, "\n\n", "[D]rops", "");
         Console.WriteLine("\nPress any key to continue");
@@ -137,6 +142,20 @@ public class Utilities
         ColourText(colour5, text10);
         Console.Write(text11);
         Console.WriteLine();
+    }
+
+    public static void Equip(Equipment Item)
+    {
+        if (Item.isWeapon)
+        {
+            Create.p.Weapon = new Equipment("",0,0,0,0,0,0,0,0,"","",true);
+            Create.p.Weapon = Item;
+        }
+        else
+        {
+            Create.p.Armor = new Equipment("", 0, 0, 0, 0, 0, 0, 0, 0, "", "", false);
+            Create.p.Armor = Item;
+        }
     }
 
     public static void GameOver()

@@ -23,7 +23,7 @@ namespace Marburgh
             Utilities.ColourText(Colour.NAME,"                                       ( )_) |       \n");
             Utilities.ColourText(Colour.GOLD,"                                        \\___/'       \n");
             Utilities.ColourText(Colour.CLASS,"");
-            Console.WriteLine("[N]ew Game       ");//[L]oad game);
+            Utilities.EmbedColourText(Colour.HEALTH,"\n\n","[N]","ew Game       ");//[L]oad game);
             string choice = Console.ReadKey(true).KeyChar.ToString().ToLower();
             if (choice == "n") Create.Character1Create();
             //else if (choice == "l") Data.Load(p);

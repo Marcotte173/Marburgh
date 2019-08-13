@@ -207,7 +207,7 @@ class Explore
                         if (Shop.WeaponList[d.lootTier].effect > p.Weapon.effect)
                         {//If it's better than what you have, you get it
                             Console.WriteLine($"You find a {Shop.WeaponList[d.lootTier].name}! Excited, you equip it");
-                            p.Weapon = Shop.WeaponList[d.lootTier];
+                            Utilities.Equip(Shop.WeaponList[d.lootTier]);
                         }//If not, well, sucks          
                         else Console.WriteLine($"You find a broken old weapon. It is of no use to anyone");
 
@@ -217,7 +217,7 @@ class Explore
                         if (Shop.ArmorList[d.lootTier].effect > p.Armor.effect)
                         {//If it's better than what you have, you get it
                             Console.WriteLine($"You find a {Shop.ArmorList[d.lootTier].name}! Excited, you equip it");
-                            p.Armor = Shop.ArmorList[d.lootTier];
+                            Utilities.Equip(Shop.ArmorList[d.lootTier]);
                         }//If not, well, sucks 
                         else Console.WriteLine($"You find a broken old set of armour. It is of no use to anyone");
                     }

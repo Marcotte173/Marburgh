@@ -8,14 +8,20 @@ public class Shop
     public string shopkeepRace;
     public string shopkeepGreeting;
     public Equipment[] ItemList;
-    public static Equipment[] WeaponList = new Equipment[] { new Equipment("None", 0, 0,0,0,0),              new Equipment("Dagger", 2, 50,0,0,0),            new Equipment("Battered Sword", 4, 200,0,0,0),  new Equipment("Short Sword", 6, 400,0,0,0),
-                                                                 new Equipment("Arming Sword", 8, 800,0,0,0),    new Equipment("Roman Sword", 10, 1000,0,0,0),    new Equipment("Long Sword", 12, 1200,0,0,0),    new Equipment("Steel Sword", 14, 1600,0,0,0),
-                                                                 new Equipment("Broad Sword", 16, 2000,0,0,0),   new Equipment("Great Sword", 20, 2500,0,0,0),    new Equipment("Blue Sword", 22, 3000,0,0,0),    new Equipment("Black Sword", 25, 3500,0,0,0),
-                                                                 new Equipment("Red Sword", 30, 4500,0,0,0),     new Equipment("Purple Sword", 35, 5500,0,0,0),   new Equipment("White Sword", 40, 6500,0,0,0),   new Equipment("Crystal Sword", 50, 7500,0,0,0), };
-    public static Equipment[] ArmorList = new Equipment[] {  new Equipment("None", 0, 0,0,0,0),              new Equipment("Cloth Armor", 2, 50,0,0,0),      new Equipment("Battered Armor", 4, 200,0,0,0), new Equipment("Soldier's Armor", 6, 400,0,0,0),
-                                                                 new Equipment("Leather Armor", 8, 1000,0,0,0),  new Equipment("Roman Armor", 10, 3000,0,0,0),   new Equipment("Chain mail", 12, 1500,0,0,0),   new Equipment("Heavy mail", 14, 3000,0,0,0),
-                                                                 new Equipment("Coat of plates", 16, 2000,0,0,0),new Equipment("Plate mail", 20, 2500,0,0,0),    new Equipment("Blue mail", 22, 3000,0,0,0),    new Equipment("Black mail", 25, 3500,0,0,0),
-                                                                 new Equipment("Red mail", 32, 4500,0,0,0),      new Equipment("Purple Mail", 40, 5500,0,0,0),   new Equipment("White Armor", 56, 6500,0,0,0),  new Equipment("Crystal Armor", 70, 7500,0,0,0) };
+    public static Equipment[] WeaponList = new Equipment[] 
+    {
+        new Equipment("None", 0, 0,0,0,0,0,0,0,"","",true),              new Equipment("Dagger", 2, 50,0,0,0,0,0,0,"","",true),            new Equipment("Battered Sword", 4, 200,0,0,0,0,0,0,"","",true),  new Equipment("Short Sword", 6, 400,0,0,0,0,0,0,"","",true),
+        new Equipment("Arming Sword", 8, 800,0,0,0,0,0,0,"","",true),    new Equipment("Roman Sword", 10, 1000,0,0,0,0,0,0,"","",true),    new Equipment("Long Sword", 12, 1200,0,0,0,0,0,0,"","",true),    new Equipment("Steel Sword", 14, 1600,0,0,0,0,0,0,"","",true),
+        new Equipment("Broad Sword", 16, 2000,0,0,0,0,0,0,"","",true),   new Equipment("Great Sword", 20, 2500,0,0,0,0,0,0,"","",true),    new Equipment("Blue Sword", 22, 3000,0,0,0,0,0,0,"","",true),    new Equipment("Black Sword", 25, 3500,0,0,0,0,0,0,"","",true),
+        new Equipment("Red Sword", 30, 4500,0,0,0,0,0,0,"","",true),     new Equipment("Purple Sword", 35, 5500,0,0,0,0,0,0,"","",true),   new Equipment("White Sword", 40, 6500,0,0,0,0,0,0,"","",true),   new Equipment("Crystal Sword", 50, 7500,0,0,0,0,0,0,"","",true)
+    };
+    public static Equipment[] ArmorList = new Equipment[] 
+    {
+        new Equipment("None", 0, 0,0,0,0,0,0,0,"","",false),              new Equipment("Cloth Armor", 2, 50,0,0,0,0,0,0,"","",false),      new Equipment("Battered Armor", 4, 200,0,0,0,0,0,0,"","",false), new Equipment("Soldier's Armor", 6, 400,0,0,0,0,0,0,"","",false),
+        new Equipment("Leather Armor", 8, 1000,0,0,0,0,0,0,"","",false),  new Equipment("Roman Armor", 10, 3000,0,0,0,0,0,0,"","",false),   new Equipment("Chain mail", 12, 1500,0,0,0,0,0,0,"","",false),   new Equipment("Heavy mail", 14, 3000,0,0,0,0,0,0,"","",false),
+        new Equipment("Coat of plates", 16, 2000,0,0,0,0,0,0,"","",false),new Equipment("Plate mail", 20, 2500,0,0,0,0,0,0,"","",false),    new Equipment("Blue mail", 22, 3000,0,0,0,0,0,0,"","",false),    new Equipment("Black mail", 25, 3500,0,0,0,0,0,0,"","",false),
+        new Equipment("Red mail", 32, 4500,0,0,0,0,0,0,"","",false),      new Equipment("Purple Mail", 40, 5500,0,0,0,0,0,0,"","",false),   new Equipment("White Armor", 56, 6500,0,0,0,0,0,0,"","",false),  new Equipment("Crystal Armor", 70, 7500,0,0,0,0,0,0,"","",false)
+    };
 
     public static Shop WeaponShop = new Shop("Billford's weapon emporium.", "Billford", "troll", "Greetings, What can I do for you", WeaponList);
     public static Shop ArmorShop = new Shop("Alya's armor shop.", "Alya", "elf", "Hey there! Looking to buy some armor?", ArmorList);
@@ -70,8 +76,8 @@ public class Shop
                         {
                             Console.WriteLine($"\n\nSmiling, {shop.shopkeepName} takes your money and gives you your {shop.ItemList[buyChoice].name}");
                             p.gold -= shop.ItemList[buyChoice].price;
-                            if (shop.shopkeepName == "Billford") p.Weapon = shop.ItemList[buyChoice];
-                            else if (shop.shopkeepName == "Alya") p.Armor = shop.ItemList[buyChoice];
+                            if (shop.shopkeepName == "Billford") Utilities.Equip(shop.ItemList[buyChoice]);
+                            else if (shop.shopkeepName == "Alya") Utilities.Equip(shop.ItemList[buyChoice]);
                         }
                     }
                 }
@@ -106,8 +112,8 @@ public class Shop
                     {
                         Console.WriteLine($"\n\n'Great!' {shop.shopkeepName} takes your {EquipmentList[sellChoice - 1].name} and gives you {EquipmentList[sellChoice - 1].price / 2} gold");
                         p.gold += EquipmentList[sellChoice - 1].price / 2;
-                        if (p.Weapon == EquipmentList[sellChoice - 1]) p.Weapon = WeaponList[0];
-                        if (p.Armor == EquipmentList[sellChoice - 1]) p.Armor = ArmorList[0];
+                        if (p.Weapon == EquipmentList[sellChoice - 1]) Utilities.Equip(WeaponList[0]);
+                        if (p.Armor == EquipmentList[sellChoice - 1]) Utilities.Equip(ArmorList[0]);
                     }
                 }
             }
@@ -128,8 +134,8 @@ public class Shop
             p.gold += equip.price / 2;
             Console.WriteLine($"Smiling, {shop.shopkeepName} takes your money and gives you your {playerEquip.name }");
             p.gold -= playerEquip.price;
-            if (shop.shopkeepName == "Billford") p.Weapon = playerEquip;
-            else if (shop.shopkeepName == "Alya") p.Armor = playerEquip;
+            if (shop.shopkeepName == "Billford") Utilities.Equip(playerEquip);
+            else if (shop.shopkeepName == "Alya") Utilities.Equip(playerEquip);
         }
     }
 

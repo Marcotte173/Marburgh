@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 
 public class Colour
 {
+    public static ConsoleColor[] magColour = new ConsoleColor[] { ConsoleColor.White, ConsoleColor.DarkRed, ConsoleColor.Green, ConsoleColor.DarkYellow, ConsoleColor.Yellow };
+    
     //ESCAPE CODES, REQUIRED FOR FOR LOOPS
     public const string BOLD = "\u001B[1m";
     public const string GRAY = "\u001b[30;1m";
